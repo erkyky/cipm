@@ -6,5 +6,10 @@ import cipm.forms as forms
 def index():
     form = forms.CipmForm()
     if form.validate_on_submit():
-        pass
+        return flask.redirect('/thankyou')
     return flask.render_template('index.html', form=form)
+
+
+@cipm.app.route('/thankyou')
+def thankyou():
+    return flask.render_template('thanksyou.html')

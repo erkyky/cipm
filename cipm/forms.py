@@ -10,12 +10,12 @@ class CipmForm(flask_wtf.Form):
 class PatientForm(flask_wtf.Form):
     primary_issue_choices = [('0', 'Chest Pain'),
                              ('1', 'Shortness of Breath'),
-                             ('2', 'Gained 2 Pounds Overnight'),
+                             ('2', 'Gained 2+ lbs Overnight'),
                              ('3', 'Out of Medication'),
                              ('4', 'High Blood Sugar'),
                              ('5', 'Other')]
-    yes_no_emergency_choices = [('yes', 'yes'),
-                                ('no', 'no')]
+    yes_no_emergency_choices = [('yes', 'Yes'),
+                                ('no', 'No')]
     weight_change_choices = [(str(x), str(x)) for x in xrange(2, 10, 1)]
     weight_change_choices += [('10', '10+')]
 

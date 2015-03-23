@@ -11,6 +11,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
     <script type="text/javascript">
     $(document).ready(function(){
+        $('input[type="radio"]').attr('checked', false);
         $('input[name="primary_issue"]').click(function(){
             switch($(this).attr("value")) {
                 case "0":
@@ -94,11 +95,11 @@ Please select your primary symptom <br/>
     </div>
     <div class="bloodsugar box">
         What's your blood sugar?<br/>
-        {{ form.bloodsugar_emergency }}
+        {{ form.bloodsugar_emergency(size=5, maxlength=5) }}mg/dL
     </div>
     <div class="other box">
         Please describe your issue below:<br/>
-        {{ form.other_emergency }}
+        {{ form.other_emergency(rows=5, cols=80) }}
     </div>
 
 

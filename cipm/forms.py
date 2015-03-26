@@ -1,13 +1,14 @@
-import flask.ext.wtf as flask_wtf
+import flask.ext.wtf as wtf
 import wtforms
 import wtforms.validators as validators
+import cipm
 
 
-class CipmForm(flask_wtf.Form):
+class CipmForm(wtf.Form):
     feedback = wtforms.TextAreaField('feedback', validators=[validators.DataRequired()])
 
 
-class PatientForm(flask_wtf.Form):
+class PatientForm(wtf.Form):
     primary_issue_choices = [('0', 'Chest Pain'),
                              ('1', 'Shortness of Breath'),
                              ('2', 'Gained 2+ lbs Overnight'),
@@ -32,5 +33,36 @@ class PatientForm(flask_wtf.Form):
     other_emergency = wtforms.TextAreaField(label='other_emergency', validators=[validators.Optional()])
 
 
+class LoginForm(wtf.Form):
+    email = wtforms.StringField('Email', validators=[validators.DataRequired(), validators.Length(1, 64),
+                                                     validators.Email()])
+    password = wtforms.PasswordField('Password', validators=[validators.DataRequired()])
+    remember_me = wtforms.BooleanField('Keep me logged in')
+    submit = wtforms.SubmitField('Log In')
 
 
+class RegistrationForm(wtf.Form):
+    email = wtforms.StringField('Email', validators=[validators.DataRequired(), validators.Length(1, 64),
+                                           validators.Email()])
+    username = wtforms.StringField('Username', validators=[
+        validators.DataRequired(), validators.Length(1, 64), validators.Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                          'Usernames must have only letters, '
+                                          'numbers, dots or underscores')])
+    password = wtforms.PasswordField('Password', validators=[
+        validators.DataRequired(), validators.EqualTo('password2', message='Passwords must match.')])
+    password2 = wtforms.PasswordField('Confirm password', validators=[validators.DataRequired()])
+    submit = wtforms.SubmitField('Register')
+
+    def validate_email(self, field):
+        db = cipm.get_db()
+        cur = db.execute('''SELECT count(*) from users where email = ?''', [field.data])
+        num_users = cur.fetchone()[0]
+        if num_users > 0:
+            raise validators.ValidationError('Email already registered. %s' % num_users)
+
+    def validate_username(self, field):
+        db = cipm.get_db()
+        cur = db.execute('''SELECT count(*) from users where username = ?''', [field.data])
+        num_users = cur.fetchone()[0]
+        if num_users > 0:
+            raise validators.ValidationError('Username already in use. %s' % num_users)

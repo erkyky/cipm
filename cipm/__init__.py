@@ -1,8 +1,22 @@
 import flask
 import sqlite3
+import flask.ext.login as login
+import flask.ext.bootstrap as bs
+from flask.ext.moment import Moment
 
 app = flask.Flask(__name__)
 app.config.from_object('config')
+
+login_manager = login.LoginManager()
+login_manager.session_protection = 'strong'
+login_manager.login_view = 'login'
+
+bootstrap = bs.Bootstrap()
+moment = Moment()
+
+login_manager.init_app(app)
+bootstrap.init_app(app)
+moment.init_app(app)
 
 
 def get_db():

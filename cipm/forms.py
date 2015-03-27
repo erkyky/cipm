@@ -4,24 +4,27 @@ import wtforms.validators as validators
 import cipm
 
 
+issues = {'0': ('chest', 'Chest Pain'),
+          '1': ('breath', 'Shortness of Breath'),
+          '2': ('weight', 'Gained 2+ lbs Overnight'),
+          '3': ('medication', 'Out of Medication'),
+          '4': ('bloodsugar', 'High Blood Sugar'),
+          '5': ('other', 'Other')}
+
+
 class CipmForm(wtf.Form):
     feedback = wtforms.TextAreaField('feedback', validators=[validators.DataRequired()])
 
 
 class PatientForm(wtf.Form):
-    primary_issue_choices = [('0', 'Chest Pain'),
-                             ('1', 'Shortness of Breath'),
-                             ('2', 'Gained 2+ lbs Overnight'),
-                             ('3', 'Out of Medication'),
-                             ('4', 'High Blood Sugar'),
-                             ('5', 'Other')]
+    primary_issue_choices = [(k, v[1]) for k, v in sorted(issues.iteritems())]
     yes_no_emergency_choices = [('yes', 'Yes'),
                                 ('no', 'No')]
     weight_change_choices = [(str(x), str(x)) for x in xrange(2, 10, 1)]
     weight_change_choices += [('10', '10+')]
 
     primary_issue = wtforms.RadioField(label='primary_issue', choices=primary_issue_choices,
-                                       validators=[validators.DataRequired()])
+                                       validators=[validators.DataRequired('Please select an option')])
     chest_emergency = wtforms.RadioField(label='chest_emergency', choices=yes_no_emergency_choices,
                                          validators=[validators.Optional()])
     breath_emergency = wtforms.RadioField(label='breath_emergency', choices=yes_no_emergency_choices,

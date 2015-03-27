@@ -2,6 +2,7 @@ import flask
 import cipm
 import cipm.forms as forms
 import cipm.models as models
+import datetime
 import flask.ext.login as login_module
 import werkzeug.security as security
 
@@ -43,9 +44,33 @@ def logout():
 
 
 @cipm.app.route('/patientform', methods=['GET', 'POST'])
+@login_module.login_required
 def patient_form():
     form = forms.PatientForm()
     if form.validate_on_submit():
+        primary_issue = form.primary_issue.data
+        if primary_issue == '0':
+            is_emergency = form.chest_emergency.data
+        if primary_issue == '1':
+            is_emergency = form.breath_emergency.data
+        if primary_issue == '2':
+            is_emergency = form.weight_emergency.data
+        if primary_issue == '3':
+            is_emergency = form.medication_emergency.data
+        if primary_issue == '4':
+            is_emergency = form.bloodsugar_emergency.data
+        if primary_issue == '5':
+            is_emergency = form.other_emergency.data
+
+        if not is_emergency:
+            # TODO fail somehow here
+            pass
+
+        username = login_module.current_user.username
+        current_time = datetime.datetime.today()
+        db = cipm.get_db()
+        db.execute('INSERT INTO symptoms VALUES (?,?,?,?)', [username, primary_issue, is_emergency, current_time])
+        db.commit()
         return flask.redirect('/thankyou')
     return flask.render_template('patientform.html', form=form)
 

@@ -45,7 +45,7 @@ def logout():
 
 @cipm.app.route('/patientform', methods=['GET', 'POST'])
 @login_module.login_required
-def patient_form():
+def patientform():
     form = forms.PatientForm()
     if form.validate_on_submit():
         primary_issue = form.primary_issue.data

@@ -1,8 +1,7 @@
-<!DOCTYPE html>
-<html>
-<head lang="en">
-    <meta charset="UTF-8">
-    <title>EpiWhale</title>
+{% extends "base.html" %}
+
+{% block head %}
+{{ super() }}
     <style type="text/css">
         .box{
             display: none;
@@ -44,9 +43,9 @@
         });
     });
 </script>
-</head>
-<body>
-<h1>Welcome to EpiWhale!</h1>
+{% endblock %}
+
+{% block page_content %}
 Please select your primary symptom <br/>
 <form action="" method="post" name="patient">
     {{ form.hidden_tag() }}
@@ -73,6 +72,7 @@ Please select your primary symptom <br/>
             </tr>
         {% endfor %}
         </table>
+        <br/>
     </div>
     <div class="breath box">
         Do you feel shortness of breath at rest?<br/>
@@ -84,26 +84,26 @@ Please select your primary symptom <br/>
             </tr>
         {% endfor %}
         </table>
+        <br/>
     </div>
     <div class="weight box">
         How much weight did you gain overnight?<br/>
         {{  form.weight_emergency }}
-    </div>
+    <br/><br/></div>
     <div class="medication box">
         What medication did you run out of? (You can enter more than one)<br/>
         {{ form.medication_emergency }}
-    </div>
+    <br/><br/></div>
     <div class="bloodsugar box">
         What's your blood sugar?<br/>
         {{ form.bloodsugar_emergency(size=5, maxlength=5) }}mg/dL
-    </div>
+    <br/><br/></div>
     <div class="other box">
         Please describe your issue below:<br/>
         {{ form.other_emergency(rows=5, cols=80) }}
-    </div>
+    <br/><br/></div>
 
 
     <p><input type="submit" value="Submit"></p>
 </form>
-</body>
-</html>
+{% endblock %}

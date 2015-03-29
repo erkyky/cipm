@@ -15,9 +15,6 @@ def secret():
 
 @cipm.app.route('/', methods=['GET', 'POST'])
 def index():
-    form = forms.CipmForm()
-    if form.validate_on_submit():
-        return flask.redirect('/thankyou')
     return flask.render_template('index.html')
 
 

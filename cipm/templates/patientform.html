@@ -49,7 +49,7 @@
 Please select your primary symptom <br/>
 <form action="" method="post" name="patient">
     {{ form.hidden_tag() }}
-    <table>
+    <table class="table table-condensed table-hover">
         {% for subfield in form.primary_issue %}
             <tr>
                 <td>{{ subfield }}</td>

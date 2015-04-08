@@ -1,21 +1,25 @@
 {% extends "base.html" %}
 
 {% block page_content %}
-    <table>
-    <tr>
-        <td>Username  </td>
-        <td>Symptom Type  </td>
-        <td>Comments  </td>
-        <td>Date Submitted  </td>
-    </tr>
-    {% for symptom in symptoms %}
-        <tr>
-            <td>{{ symptom[0] }}</td>
-            <td>{{ symptom[1] }}</td>
-            <td>{{ symptom[2] }}</td>
-            <td>{{ symptom[3] }}</td>
-            <td>{{ symptom[4] }}</td>
-        </tr>
-    {% endfor %}
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr>
+                <td>Username  </td>
+                <td>Symptom Type  </td>
+                <td>Comments  </td>
+                <td>Date Submitted  </td>
+            </tr>
+        </thead>
+        <tbody>
+        {% for symptom in symptoms %}
+            <tr>
+                <td>{{ symptom[0] }}</td>
+                <td>{{ symptom[1] }}</td>
+                <td>{{ symptom[2] }}</td>
+                <td>{{ symptom[3] }}</td>
+                <td>{{ symptom[4] }}</td>
+            </tr>
+        {% endfor %}
+        </tbody>
     </table>
 {% endblock %}

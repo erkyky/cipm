@@ -72,6 +72,14 @@ def patientform():
     return flask.render_template('patientform.html', form=form)
 
 
+@cipm.app.route('/halp')
+def halp():
+    db = cipm.get_db()
+    conn = db.execute('SELECT * FROM symptoms')
+    result = conn.fetchall()
+    return flask.render_template('halp.html', symptoms=result)
+
+
 @cipm.app.route('/thankyou')
 def thankyou():
     return flask.render_template('thanksyou.html')

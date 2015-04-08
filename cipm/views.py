@@ -55,7 +55,7 @@ def patientform():
         if primary_issue == '3':
             is_emergency = form.medication_emergency.data
         if primary_issue == '4':
-            is_emergency = form.bloodsugar_emergency.data
+            is_emergency = str(form.bloodsugar_emergency.data)
         if primary_issue == '5':
             is_emergency = form.other_emergency.data
 

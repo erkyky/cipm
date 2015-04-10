@@ -37,8 +37,10 @@ class PatientForm(wtf.Form):
 
 
 class LoginForm(wtf.Form):
-    email = wtforms.StringField('Email', validators=[validators.DataRequired(), validators.Length(1, 64),
-                                                     validators.Email()])
+    username = wtforms.StringField('Username', validators=[validators.DataRequired(), validators.Length(1, 64),
+                                                           validators.Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
+                                                                             'Usernames must have only letters, '
+                                                                             'numbers, dots or underscores')])
     password = wtforms.PasswordField('Password', validators=[validators.DataRequired()])
     remember_me = wtforms.BooleanField('Keep me logged in')
     submit = wtforms.SubmitField('Log In')

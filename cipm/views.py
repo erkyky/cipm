@@ -28,7 +28,7 @@ def login():
     form = forms.LoginForm()
     if form.validate_on_submit():
         db = cipm.get_db()
-        conn = db.execute('SELECT * FROM users WHERE email = ?', [form.email.data])
+        conn = db.execute('SELECT * FROM users WHERE username = ?', [form.username.data])
         result = conn.fetchone()
         user = models.User(result[0], result[2], password_hash=result[1])
         if result is not None and user.verify_password(form.password.data):

@@ -18,6 +18,11 @@ def index():
     return flask.render_template('index.html')
 
 
+@cipm.app.route('/community')
+def community():
+    return flask.render_template('community.html')
+
+
 @cipm.app.route('/login', methods=['GET', 'POST'])
 def login():
     form = forms.LoginForm()

@@ -8,20 +8,26 @@ create table users (
 drop table if exists symptoms;
 create table symptoms (
   username string(128) not null,
-  primary_symptom text not null,
-  secondary_symptom text not null,
-  created datetime not null,
+  symptom text not null,
+  details text not null,
+  extra text not null,
+  reported datetime not null,
   FOREIGN KEY(username) REFERENCES users(username)
 );
 
 drop table if exists addresses;
-create table addresses (
+
+drop table if exists passport;
+create table passport (
   username string(128) not null,
-  addr_one text not null,
-  addr_two text not null,
+  firstname string(128) not null,
+  --middlename string(128) not null,
+  surname string(128) not null,
+  --addr_one text not null,
+  --addr_two text not null,
   city string(128) not null,
   state string(128) not null,
-  zip string(128) not null,
-  phone datetime not null,
+  --zip string(128) not null,
+  phone text not null,
   FOREIGN KEY(username) REFERENCES users(username)
 );

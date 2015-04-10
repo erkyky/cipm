@@ -87,7 +87,11 @@ def halp():
     results = conn.fetchall()
 
     symptoms = []
+    severity_map = {'0': 'high', '1': 'high', '2': 'med', '3': 'med', '4': 'low', '5': 'low'}
+    severity_colors = {'high': 'red', 'med': 'orange', 'low': 'yellow'}
+
     for result in results:
+        severity = severity_map[result[3]]
         symptoms.append([result[0],
                          '{first} {last}'.format(first=result[1], last=result[2]),
                          forms.issues[result[3]][1],
@@ -95,7 +99,10 @@ def halp():
                          result[5],
                          dateutil.parser.parse(result[6]).strftime('%Y/%m/%d %H:%M:%S'),
                          '{first} {last}'.format(first=result[7], last=result[8]),
-                         result[9]])
+                         result[9],
+                         severity,
+                         severity_colors[severity]],
+                         )
 
     return flask.render_template('halp.html', symptoms=symptoms)
 

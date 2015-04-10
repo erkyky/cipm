@@ -101,9 +101,8 @@ def halp():
                          '{first} {last}'.format(first=result[7], last=result[8]),
                          result[9],
                          severity,
-                         severity_colors[severity]],
-                         )
-
+                         severity_colors[severity]
+                         ])
     return flask.render_template('halp.html', symptoms=symptoms)
 
 

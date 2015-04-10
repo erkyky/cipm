@@ -3,6 +3,7 @@ import cipm
 import cipm.forms as forms
 import cipm.models as models
 import datetime
+import dateutil.parser
 import flask.ext.login as login_module
 import werkzeug.security as security
 
@@ -81,9 +82,22 @@ def patientform():
 @cipm.app.route('/halp')
 def halp():
     db = cipm.get_db()
-    conn = db.execute('SELECT * FROM symptoms')
-    result = conn.fetchall()
-    return flask.render_template('halp.html', symptoms=result)
+    conn = db.execute('SELECT p.username, p.firstname, p.surname, s.symptom, s.details, s.extra, s.reported, p.city, '
+                      'p.state, p.phone FROM symptoms s inner join passport p on s.username == p.username')
+    results = conn.fetchall()
+
+    symptoms = []
+    for result in results:
+        symptoms.append([result[0],
+                         '{first} {last}'.format(first=result[1], last=result[2]),
+                         forms.issues[result[3]][1],
+                         result[4],
+                         result[5],
+                         dateutil.parser.parse(result[6]).strftime('%Y/%m/%d %H:%M:%S'),
+                         '{first} {last}'.format(first=result[7], last=result[8]),
+                         result[9]])
+
+    return flask.render_template('halp.html', symptoms=symptoms)
 
 
 @cipm.app.route('/thankyou')

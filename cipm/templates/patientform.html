@@ -40,6 +40,7 @@
                     default:
                         $(".box").hide();
                 }
+                $(".extra").show();
             });
         });
     </script>
@@ -80,7 +81,6 @@
                     </tr>
                 {% endfor %}
             </table>
-            <br/>
         </div>
         <div class="breath box">
             Do you feel shortness of breath at rest?<br/>
@@ -92,7 +92,6 @@
                     </tr>
                 {% endfor %}
             </table>
-            <br/>
         </div>
         <div class="weight box">
             How much weight did you gain overnight?<br/>
@@ -108,8 +107,15 @@
             <br/><br/></div>
         <div class="other box">
             Please describe your issue below:<br/>
-            {{ form.other_emergency(rows=5, cols=80) }}
+            {{ form.other_emergency(rows=5, cols=40) }}
             <br/><br/></div>
+
+        <div class="extra" hidden="true">
+            Anything else we should know about?<br/>
+            {{ form.extra(rows=5, cols=40) }}
+            <br/>
+            <br/>
+        </div>
 
 
         <p><input type="submit" value="Submit"></p>

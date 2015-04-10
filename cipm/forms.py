@@ -35,6 +35,8 @@ class PatientForm(wtf.Form):
     bloodsugar_emergency = wtforms.DecimalField(label='bloodsugar_emergency', validators=[validators.Optional()])
     other_emergency = wtforms.TextAreaField(label='other_emergency', validators=[validators.Optional()])
 
+    extra = wtforms.TextAreaField(label='extra', validators=[validators.Optional()])
+
 
 class LoginForm(wtf.Form):
     username = wtforms.StringField('Username', validators=[validators.DataRequired(), validators.Length(1, 64),

@@ -50,28 +50,29 @@ def logout():
 def patientform():
     form = forms.PatientForm()
     if form.validate_on_submit():
-        primary_issue = form.primary_issue.data
-        if primary_issue == '0':
-            is_emergency = form.chest_emergency.data
-        if primary_issue == '1':
-            is_emergency = form.breath_emergency.data
-        if primary_issue == '2':
-            is_emergency = form.weight_emergency.data
-        if primary_issue == '3':
-            is_emergency = form.medication_emergency.data
-        if primary_issue == '4':
-            is_emergency = str(form.bloodsugar_emergency.data)
-        if primary_issue == '5':
-            is_emergency = form.other_emergency.data
+        issue = form.primary_issue.data
+        if issue == '0':
+            details = form.chest_emergency.data
+        elif issue == '1':
+            details = form.breath_emergency.data
+        elif issue == '2':
+            details = '{a}lbs'.format(a=form.weight_emergency.data)
+        elif issue == '3':
+            details = form.medication_emergency.data
+        elif issue == '4':
+            details = '{a}mg/dL'.format(a=form.bloodsugar_emergency.data)
+        elif issue == '5':
+            details = form.other_emergency.data
 
-        if not is_emergency:
+        if not details:
             # TODO fail somehow here
             pass
 
         username = login_module.current_user.username
         current_time = datetime.datetime.today()
+
         db = cipm.get_db()
-        db.execute('INSERT INTO symptoms VALUES (?,?,?,?)', [username, primary_issue, is_emergency, current_time])
+        db.execute('INSERT INTO symptoms VALUES (?,?,?,?,?)', [username, issue, details, form.extra.data, current_time])
         db.commit()
         return flask.redirect('/thankyou')
     return flask.render_template('patientform.html', form=form)

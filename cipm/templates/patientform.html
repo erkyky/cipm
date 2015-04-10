@@ -33,9 +33,13 @@
                         $(".box").hide();
                         $(".bloodsugar").show();
                         break;
-                    case "5":
+                    case "99":
                         $(".box").hide();
                         $(".other").show();
+                        break;
+                    case "5":
+                        $(".box").hide();
+                        $(".fall").show();
                         break;
                     default:
                         $(".box").hide();
@@ -104,6 +108,10 @@
         <div class="bloodsugar box">
             What's your blood sugar?<br/>
             {{ form.bloodsugar_emergency(size=5, maxlength=5) }}mg/dL
+            <br/><br/></div>
+        <div class="fall box">
+            Where does it hurt?<br/>
+            {{ form.other_emergency(rows=1, cols=40) }}
             <br/><br/></div>
         <div class="other box">
             Please describe your issue below:<br/>

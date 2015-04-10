@@ -63,6 +63,8 @@ def patientform():
         elif issue == '4':
             details = '{a}mg/dL'.format(a=form.bloodsugar_emergency.data)
         elif issue == '5':
+            details = form.fall_emergency.data
+        elif issue == '99':
             details = form.other_emergency.data
 
         if not details:
@@ -87,7 +89,7 @@ def halp():
     results = conn.fetchall()
 
     symptoms = []
-    severity_map = {'0': 'high', '1': 'high', '2': 'med', '3': 'med', '4': 'low', '5': 'low'}
+    severity_map = {'0': 'high', '1': 'high', '2': 'med', '3': 'med', '4': 'low', '5': 'low', '99': 'low'}
     severity_colors = {'high': 'red', 'med': 'orange', 'low': 'yellow'}
 
     for result in results:

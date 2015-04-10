@@ -9,7 +9,8 @@ issues = {'0': ('chest', 'Chest Pain'),
           '2': ('weight', 'Gained 2+ lbs Overnight'),
           '3': ('medication', 'Out of Medication'),
           '4': ('bloodsugar', 'High Blood Sugar'),
-          '5': ('other', 'Other')}
+          '5': ('fall', 'I Fell'),
+          '99': ('other', 'Other')}
 
 
 class CipmForm(wtf.Form):
@@ -33,6 +34,7 @@ class PatientForm(wtf.Form):
                                            validators=[validators.Optional()])
     medication_emergency = wtforms.TextAreaField(label='medication_emergency', validators=[validators.Optional()])
     bloodsugar_emergency = wtforms.DecimalField(label='bloodsugar_emergency', validators=[validators.Optional()])
+    fall_emergency = wtforms.TextAreaField(label='fall_emergency', validators=[validators.Optional()])
     other_emergency = wtforms.TextAreaField(label='other_emergency', validators=[validators.Optional()])
 
     extra = wtforms.TextAreaField(label='extra', validators=[validators.Optional()])

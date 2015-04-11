@@ -25,7 +25,7 @@
                 <li><a href="{{ url_for('patientform') }}">Get Care</a></li>
 
                 {% if current_user.is_authenticated() %}
-                    <li><a href="{{ url_for('halp') }}">Provider View</a></li>
+                    <li><a href="{{ url_for('panel') }}">Care Team</a></li>
                     <li><a href="{{ url_for('community') }}">Community</a></li>
                 {% endif %}
             </ul>
@@ -51,10 +51,10 @@
     {% endfor %}
 
     {% block page_content %}{% endblock %}
-    {% block footer %}
-    <footer id="footer">
+   {% block footer %}
+    <div id="footer" class="page-footer">
         &copy; Copyright 2015 CareCompass
-    </footer>
+    </div>
     {% endblock %}
 </div>
 {% endblock %}

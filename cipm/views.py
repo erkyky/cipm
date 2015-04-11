@@ -81,8 +81,8 @@ def patientform():
     return flask.render_template('patientform.html', form=form)
 
 
-@cipm.app.route('/halp')
-def halp():
+@cipm.app.route('/panel')
+def panel():
     db = cipm.get_db()
     conn = db.execute('SELECT p.username, p.firstname, p.surname, s.symptom, s.details, s.extra, s.reported, p.city, '
                       'p.state, p.phone FROM symptoms s inner join passport p on s.username == p.username')
@@ -105,7 +105,7 @@ def halp():
                          severity,
                          severity_colors[severity]
                          ])
-    return flask.render_template('halp.html', symptoms=symptoms)
+    return flask.render_template('panel.html', symptoms=symptoms)
 
 
 @cipm.app.route('/thankyou')

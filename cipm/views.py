@@ -21,7 +21,15 @@ def index():
 
 @cipm.app.route('/community')
 def community():
-    return flask.render_template('community.html')
+    username = login_module.current_user.username
+    if username:
+        db = cipm.get_db()
+        conn = db.execute('SELECT city, state FROM passport WHERE username = ?', [username])
+        results = conn.fetchone()
+        location = results[0] + ' ' + results[1]
+    else:
+        location = 'Boston'
+    return flask.render_template('community.html', location=location)
 
 
 @cipm.app.route('/login', methods=['GET', 'POST'])

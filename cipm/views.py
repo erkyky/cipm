@@ -109,7 +109,7 @@ def panel():
                          result[4],
                          result[5],
                          dateutil.parser.parse(result[6]).strftime('%Y/%m/%d %H:%M:%S'),
-                         '{first} {last}'.format(first=result[7], last=result[8]),
+                         '{city}, {state}'.format(city=result[7], state=result[8]),
                          '({area}) {a}-{b}'.format(area=result[9][0:3], a=result[9][3:6], b=result[9][6:10]),
                          severity,
                          severity_colors[severity]

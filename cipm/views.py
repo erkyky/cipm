@@ -122,7 +122,15 @@ def register():
         username = form.username.data
         password = form.password.data
         password_hash = security.generate_password_hash(password)
+
+        first_name = form.firstname.data
+        surname = form.surname.data
+        city = form.city.data
+        state = form.state.data
+        phone = form.phone.data
+
         db.execute('INSERT INTO users VALUES (?,?,?)', [username, password_hash, email])
+        db.execute('INSERT INTO passport VALUES (?,?,?,?,?,?)', [username, first_name, surname, city, state, phone])
         db.commit()
 
         flask.flash('You can now login.')

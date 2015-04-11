@@ -57,9 +57,16 @@ class RegistrationForm(wtf.Form):
         validators.DataRequired(), validators.Length(1, 64), validators.Regexp('^[A-Za-z][A-Za-z0-9_.]*$', 0,
                                           'Usernames must have only letters, '
                                           'numbers, dots or underscores')])
+
     password = wtforms.PasswordField('Password', validators=[
         validators.DataRequired(), validators.EqualTo('password2', message='Passwords must match.')])
     password2 = wtforms.PasswordField('Confirm password', validators=[validators.DataRequired()])
+
+    firstname = wtforms.StringField('First Name', validators=[validators.DataRequired(), validators.Length(1, 64)])
+    surname = wtforms.StringField('Last Name', validators=[validators.DataRequired(), validators.Length(1, 64)])
+    city = wtforms.StringField('City', validators=[validators.DataRequired(), validators.Length(1, 64)])
+    state = wtforms.StringField('State', validators=[validators.DataRequired(), validators.Length(1, 2)])
+    phone = wtforms.StringField('Phone number', validators=[validators.DataRequired(), validators.Length(1, 15)])
     submit = wtforms.SubmitField('Register')
 
     def validate_email(self, field):

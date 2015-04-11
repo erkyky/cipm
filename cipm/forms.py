@@ -65,8 +65,8 @@ class RegistrationForm(wtf.Form):
     firstname = wtforms.StringField('First Name', validators=[validators.DataRequired(), validators.Length(1, 64)])
     surname = wtforms.StringField('Last Name', validators=[validators.DataRequired(), validators.Length(1, 64)])
     city = wtforms.StringField('City', validators=[validators.DataRequired(), validators.Length(1, 64)])
-    state = wtforms.StringField('State', validators=[validators.DataRequired(), validators.Length(1, 2)])
-    phone = wtforms.StringField('Phone number', validators=[validators.DataRequired(), validators.Length(1, 15)])
+    state = wtforms.StringField('State', validators=[validators.DataRequired(), validators.Length(1, 20)])
+    phone = wtforms.StringField('Phone number, please enter 10 digits with no delimiters', validators=[validators.DataRequired(), validators.Length(1, 10)])
     submit = wtforms.SubmitField('Register')
 
     def validate_email(self, field):

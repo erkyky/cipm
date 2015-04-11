@@ -5,6 +5,7 @@ import cipm.models as models
 import datetime
 import dateutil.parser
 import flask.ext.login as login_module
+import phonenumbers
 import werkzeug.security as security
 
 
@@ -109,7 +110,7 @@ def panel():
                          result[5],
                          dateutil.parser.parse(result[6]).strftime('%Y/%m/%d %H:%M:%S'),
                          '{first} {last}'.format(first=result[7], last=result[8]),
-                         result[9],
+                         '({area}) {a}-{b}'.format(area=result[9][0:3], a=result[9][3:6], b=result[9][6:10]),
                          severity,
                          severity_colors[severity]
                          ])
